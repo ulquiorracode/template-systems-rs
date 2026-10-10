@@ -1,0 +1,17 @@
+# Auto-detect text files and normalize line endings to LF on checkout
+* text=auto eol=lf
+
+# Explicit text files with LF
+*.rs text eol=lf diff=rust
+*.toml text eol=lf
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.md text eol=lf diff=markdown
+*.txt text eol=lf
+*.sh text eol=lf
+*.svg text eol=lf
+
+# Windows Batch files require CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf

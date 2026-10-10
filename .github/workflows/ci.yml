@@ -31,7 +31,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v7
@@ -48,13 +48,30 @@ jobs:
         uses: taiki-e/install-action@nextest
 
       - name: Run Clippy
-        run: cargo clippy --all-targets --all-features --locked -- -D warnings
+        run: cargo clippy --all-targets --all-features -- -D warnings
 
       - name: Run Tests (Nextest)
-        run: cargo nextest run --all-targets --locked
+        run: cargo nextest run --all-targets
 
       - name: Run Doc Tests
-        run: cargo test --doc --locked
+        run: cargo test --doc
 
       - name: Compile Benchmarks
-        run: cargo bench --no-run --locked
+        run: cargo bench --no-run
+
+  audit:
+    name: Supply Chain Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install cargo-audit & cargo-deny
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-audit, cargo-deny
+
+      - name: Run cargo audit
+        run: cargo audit
+
+      - name: Run cargo deny
+        run: cargo deny check
