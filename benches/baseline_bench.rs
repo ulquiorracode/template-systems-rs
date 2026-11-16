@@ -1,4 +1,5 @@
-use criterion::{Criterion, black_box, criterion_group, criterion_main};
+use core::hint::black_box;
+use criterion::{Criterion, criterion_group, criterion_main};
 
 fn benchmark_sample(c: &mut Criterion) {
     c.bench_function("hello_systems_call", |b| {
