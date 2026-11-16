@@ -10,6 +10,12 @@ repository = "https://github.com/ulquiorracode/template-systems-rs"
 
 [dependencies]
 
+[features]
+default = []
+std = ["alloc"]
+alloc = []
+builder = ["alloc"]
+
 [dev-dependencies]
 criterion = "0.5"
 
